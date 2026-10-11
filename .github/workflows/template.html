@@ -1,0 +1,64 @@
+html
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Курсы НБУ на __DATE__</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root { --bg:#f6f5f1; --card:#fff; --ink:#1c1c1a; --muted:#6b6a64; --line:#e4e2da; --usd:#2a7a4b; --eur:#2f5aa8; --up:#b33a2b; --down:#2a7a4b; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#141413; --card:#1e1e1c; --ink:#ecebe6; --muted:#9a998f; --line:#33322e; --usd:#5fbf86; --eur:#7aa2ec; } }
+  * { box-sizing:border-box }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width:860px; margin:0 auto; padding:32px 16px 48px; }
+  h1 { font-size:28px; margin:0 0 4px; } .sub { color:var(--muted); margin:0 0 24px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:20px; }
+  .code { color:var(--muted); font-size:14px; letter-spacing:.05em; }
+  .rate { font-size:34px; font-weight:650; font-variant-numeric:tabular-nums; }
+  .chg { font-size:14px; } .up { color:var(--up) } .down { color:var(--down) }
+  .chart { margin-top:16px; height:320px; }
+  .joke { white-space:normal; font-size:17px; }
+  footer { color:var(--muted); font-size:13px; margin-top:24px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Курсы валют НБУ</h1>
+  <p class="sub">Официальные курсы на __DATE__ · обновляется автоматически каждое утро</p>
+  <div class="grid" id="cards"></div>
+  <div class="card chart"><canvas id="c"></canvas></div>
+  <div class="card" style="margin-top:16px">
+    <div class="code">АНЕКДОТ ДНЯ</div>
+    <p class="joke">__JOKE__</p>
+  </div>
+  <footer>Источник: bank.gov.ua (Национальный банк Украины)</footer>
+</main>
+<script>
+const D = __DATA__;
+const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const cards = document.getElementById('cards');
+for (const [code, v] of Object.entries(D.summary)) {
+  const cls = v.day_change > 0 ? 'up' : 'down';
+  cards.insertAdjacentHTML('beforeend', `<div class="card">
+    <div class="code">${code} / UAH</div>
+    <div class="rate">${v.today.toFixed(4)} ₴</div>
+    <div class="chg ${cls}">${v.day_change >= 0 ? '+' : ''}${v.day_change.toFixed(4)} за день ·
+      ${v.month_change_pct >= 0 ? '+' : ''}${v.month_change_pct.toFixed(2)}% за месяц</div></div>`);
+}
+const labels = D.hist.USD.map(r => r[0].slice(5));
+new Chart(document.getElementById('c'), {
+  type: 'line',
+  data: { labels, datasets: Object.entries(D.hist).map(([code, rows]) => ({
+    label: code, data: rows.map(r => r[1]), borderColor: css('--' + code.toLowerCase()),
+    pointRadius: 0, tension: .25, borderWidth: 2, yAxisID: code })) },
+  options: { maintainAspectRatio:false, interaction:{mode:'index', intersect:false},
+    plugins:{ legend:{ labels:{ color: css('--muted') } } },
+    scales: { x:{ ticks:{color:css('--muted'), maxTicksLimit:8}, grid:{display:false} },
+      USD:{ position:'left',  ticks:{color:css('--usd')}, grid:{color:css('--line')} },
+      EUR:{ position:'right', ticks:{color:css('--eur')}, grid:{display:false} } } }
+});
+</script>
+</body>
+</html>
