@@ -1,0 +1,64 @@
+
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Курсы НБУ на 11.10.2026</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root { --bg:#f6f5f1; --card:#fff; --ink:#1c1c1a; --muted:#6b6a64; --line:#e4e2da; --usd:#2a7a4b; --eur:#2f5aa8; --up:#b33a2b; --down:#2a7a4b; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#141413; --card:#1e1e1c; --ink:#ecebe6; --muted:#9a998f; --line:#33322e; --usd:#5fbf86; --eur:#7aa2ec; } }
+  * { box-sizing:border-box }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width:860px; margin:0 auto; padding:32px 16px 48px; }
+  h1 { font-size:28px; margin:0 0 4px; } .sub { color:var(--muted); margin:0 0 24px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:20px; }
+  .code { color:var(--muted); font-size:14px; letter-spacing:.05em; }
+  .rate { font-size:34px; font-weight:650; font-variant-numeric:tabular-nums; }
+  .chg { font-size:14px; } .up { color:var(--up) } .down { color:var(--down) }
+  .chart { margin-top:16px; height:320px; }
+  .joke { white-space:normal; font-size:17px; }
+  footer { color:var(--muted); font-size:13px; margin-top:24px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Курсы валют НБУ</h1>
+  <p class="sub">Официальные курсы на 11.10.2026 · обновляется автоматически каждое утро</p>
+  <div class="grid" id="cards"></div>
+  <div class="card chart"><canvas id="c"></canvas></div>
+  <div class="card" style="margin-top:16px">
+    <div class="code">АНЕКДОТ ДНЯ</div>
+    <p class="joke">Объявление:<br>- Вы молоды, красивы, элегантны? Хотите работать за рубежом? В Монголии требуются укладчики асфальта!</p>
+  </div>
+  <footer>Источник: bank.gov.ua (Национальный банк Украины)</footer>
+</main>
+<script>
+const D = {"hist": {"USD": [["2026-09-12", 44.5526], ["2026-09-13", 44.5526], ["2026-09-14", 44.5483], ["2026-09-15", 44.618], ["2026-09-16", 44.639], ["2026-09-17", 44.6021], ["2026-09-18", 44.6648], ["2026-09-19", 44.6648], ["2026-09-20", 44.6648], ["2026-09-21", 44.6743], ["2026-09-22", 44.7071], ["2026-09-23", 44.7863], ["2026-09-24", 44.8571], ["2026-09-25", 44.9729], ["2026-09-26", 44.9729], ["2026-09-27", 44.9729], ["2026-09-28", 44.8414], ["2026-09-29", 44.8153], ["2026-09-30", 44.8624], ["2026-10-01", 44.6819], ["2026-10-02", 44.8333], ["2026-10-03", 44.8333], ["2026-10-04", 44.8333], ["2026-10-05", 44.9857], ["2026-10-06", 45.0564], ["2026-10-07", 44.9453], ["2026-10-08", 44.8639], ["2026-10-09", 44.8526], ["2026-10-10", 44.8526], ["2026-10-11", 44.8526]], "EUR": [["2026-09-12", 51.7643], ["2026-09-13", 51.7643], ["2026-09-14", 51.6386], ["2026-09-15", 51.5231], ["2026-09-16", 51.513], ["2026-09-17", 51.449], ["2026-09-18", 51.2372], ["2026-09-19", 51.2372], ["2026-09-20", 51.2372], ["2026-09-21", 51.1981], ["2026-09-22", 51.3671], ["2026-09-23", 51.3345], ["2026-09-24", 51.1864], ["2026-09-25", 51.122], ["2026-09-26", 51.122], ["2026-09-27", 51.122], ["2026-09-28", 51.1358], ["2026-09-29", 50.9743], ["2026-09-30", 50.9278], ["2026-10-01", 50.7166], ["2026-10-02", 50.6975], ["2026-10-03", 50.6975], ["2026-10-04", 50.6975], ["2026-10-05", 50.5333], ["2026-10-06", 50.483], ["2026-10-07", 50.6394], ["2026-10-08", 50.1569], ["2026-10-09", 50.1385], ["2026-10-10", 50.1385], ["2026-10-11", 50.1385]]}, "summary": {"USD": {"today": 44.8526, "day_change": 0.0, "month_change_pct": 0.6733613750937284}, "EUR": {"today": 50.1385, "day_change": 0.0, "month_change_pct": -3.14077462652832}}};
+const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const cards = document.getElementById('cards');
+for (const [code, v] of Object.entries(D.summary)) {
+  const cls = v.day_change > 0 ? 'up' : 'down';
+  cards.insertAdjacentHTML('beforeend', `<div class="card">
+    <div class="code">${code} / UAH</div>
+    <div class="rate">${v.today.toFixed(4)} ₴</div>
+    <div class="chg ${cls}">${v.day_change >= 0 ? '+' : ''}${v.day_change.toFixed(4)} за день ·
+      ${v.month_change_pct >= 0 ? '+' : ''}${v.month_change_pct.toFixed(2)}% за месяц</div></div>`);
+}
+const labels = D.hist.USD.map(r => r[0].slice(5));
+new Chart(document.getElementById('c'), {
+  type: 'line',
+  data: { labels, datasets: Object.entries(D.hist).map(([code, rows]) => ({
+    label: code, data: rows.map(r => r[1]), borderColor: css('--' + code.toLowerCase()),
+    pointRadius: 0, tension: .25, borderWidth: 2, yAxisID: code })) },
+  options: { maintainAspectRatio:false, interaction:{mode:'index', intersect:false},
+    plugins:{ legend:{ labels:{ color: css('--muted') } } },
+    scales: { x:{ ticks:{color:css('--muted'), maxTicksLimit:8}, grid:{display:false} },
+      USD:{ position:'left',  ticks:{color:css('--usd')}, grid:{color:css('--line')} },
+      EUR:{ position:'right', ticks:{color:css('--eur')}, grid:{display:false} } } }
+});
+</script>
+</body>
+</html>
