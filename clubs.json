@@ -1,0 +1,44 @@
+[
+  {
+    "name": "CFO Club Ukraine",
+    "region": "Украина",
+    "type": "национальный клуб",
+    "urls": ["https://www.cfo-club.org/"],
+    "search": "CFO Club Ukraine клуб фінансових директорів новини"
+  },
+  {
+    "name": "CFO Forum (Founders Forum × Cooper Parry)",
+    "region": "Европа, Лондон",
+    "type": "нишевый: закрытое сообщество CFO быстрорастущих компаний",
+    "urls": ["https://ff.co/events-for-founders/cfo-forum/", "https://www.cooperparry.com/news/"],
+    "search": "\"CFO Forum\" Founders Forum Cooper Parry"
+  },
+  {
+    "name": "CFO Connect",
+    "region": "Европа",
+    "type": "нишевый: сообщество финансовых лидеров tech-компаний",
+    "urls": ["https://www.cfoconnect.eu/events/", "https://www.cfoconnect.eu/resources"],
+    "search": "\"CFO Connect\" community events news"
+  },
+  {
+    "name": "CFO Leadership Council",
+    "region": "США и Канада",
+    "type": "крупный национальный",
+    "urls": ["https://cfoleadershipcouncil.com/events/", "https://strategiccfo360.com"],
+    "search": "\"CFO Leadership Council\" news launch"
+  },
+  {
+    "name": "CFO Roundtable",
+    "region": "США, Нью-Йорк",
+    "type": "нишевый: закрытое сообщество CFO растущих компаний",
+    "urls": ["https://www.cfo-roundtable.com/index", "https://www.cfo-roundtable.com/cfo-focus"],
+    "search": "\"CFO Roundtable\" survey New York finance executives"
+  },
+  {
+    "name": "The SaaS CFO",
+    "region": "США",
+    "type": "нишевый: сообщество финансистов SaaS-компаний",
+    "urls": ["https://www.thesaascfo.com/"],
+    "search": "\"The SaaS CFO\" Ben Murray new"
+  }
+]
