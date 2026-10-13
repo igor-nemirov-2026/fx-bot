@@ -1,5 +1,5 @@
 {
-  "next": 0,
+  "next": 3,
   "clubs": {
     "CFO Club Ukraine": {},
     "CFO Forum (Founders Forum × Cooper Parry)": {},
@@ -22,6 +22,6 @@
     }
   },
   "month": "2026-10",
-  "spent_usd": 0.046,
+  "spent_usd": 0.0813,
   "budget_notified": false
 }
