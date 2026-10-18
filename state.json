@@ -1,5 +1,5 @@
 {
-  "next": 3,
+  "next": 0,
   "clubs": {
     "CFO Club Ukraine": {},
     "CFO Forum (Founders Forum × Cooper Parry)": {},
@@ -17,12 +17,13 @@
         "Статья «The SaaS Billing Stack Is Breaking» (15.09.2026)",
         "Статья «How to Score Your SaaS Exit Readiness» (22.09.2026)",
         "Статья «Cloud Infrastructure Is Now a Finance Problem» (конец сентября 2026)",
-        "Статья Бена Мюррея «Why a 10% ARR Miss Never Goes Away» (13.10.2026) и скачиваемый шаблон для сценарного планирования"
+        "Статья Бена Мюррея «Why a 10% ARR Miss Never Goes Away» (13.10.2026) и скачиваемый шаблон для сценарного планирования",
+        "Новый эпизод подкаста The SaaS CFO (15.10.2026): ИИ и картирование навыков, гость — основатель Talentware"
       ],
-      "last_post": "2026-10-14"
+      "last_post": "2026-10-18"
     }
   },
   "month": "2026-10",
-  "spent_usd": 0.218,
+  "spent_usd": 0.2471,
   "budget_notified": false
 }
