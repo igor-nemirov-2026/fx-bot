@@ -1,5 +1,5 @@
 {
-  "next": 3,
+  "next": 0,
   "clubs": {
     "CFO Club Ukraine": {},
     "CFO Forum (Founders Forum × Cooper Parry)": {},
@@ -20,12 +20,13 @@
         "Статья «Cloud Infrastructure Is Now a Finance Problem» (конец сентября 2026)",
         "Статья Бена Мюррея «Why a 10% ARR Miss Never Goes Away» (13.10.2026) и скачиваемый шаблон для сценарного планирования",
         "Новый эпизод подкаста The SaaS CFO (15.10.2026): ИИ и картирование навыков, гость — основатель Talentware",
-        "Новая статья Бена Мюррея «OpenAI vs. Anthropic: What the S-1 Tells Us About AI ARR» (27.10.2026)"
+        "Новая статья Бена Мюррея «OpenAI vs. Anthropic: What the S-1 Tells Us About AI ARR» (27.10.2026)",
+        "Статья Бена Мюррея от 3.11.2026: метрика «выручка на доллар вычислений» Anthropic и расчёт IER"
       ],
-      "last_post": "2026-10-28"
+      "last_post": "2026-11-05"
     }
   },
   "month": "2026-11",
-  "spent_usd": 0.1399,
+  "spent_usd": 0.1893,
   "budget_notified": false
 }
